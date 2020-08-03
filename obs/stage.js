@@ -83,6 +83,9 @@ window.OpenLP = {
           OpenLP.currentTags[idx] = tags;
           if (slide["selected"])
             OpenLP.currentSlide = idx;
+          var blank = slide["blank"];
+          $("#wrapper").addClass(blank ? "hide" : "show");
+          $("#wrapper").removeClass(blank ? "show" : "hide");
         })
         OpenLP.loadService();
       }
@@ -115,6 +118,9 @@ window.OpenLP = {
       "/api/poll",
       function (data, status) {
         OpenLP.updateClock(data);
+        blank = data.results.blank;
+        $("#wrapper").addClass(blank ? "hide" : "show");
+        $("#wrapper").removeClass(blank ? "show" : "hide");
         if (OpenLP.currentItem != data.results.item ||
             OpenLP.currentService != data.results.service) {
           OpenLP.currentItem = data.results.item;
