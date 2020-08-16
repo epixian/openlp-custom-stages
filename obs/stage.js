@@ -50,6 +50,12 @@ window.OpenLP = {
         var tags = 0;
         var lastChange = 0;
         $.each(data.results.slides, function(idx, slide) {
+
+          // show/hide slide (controlled by OpenLP "Blank Screen" button)
+          var blank = slide["blank"];
+          $("#wrapper").addClass(blank ? "hide" : "show");
+          $("#wrapper").removeClass(blank ? "show" : "hide");
+
           var prevtag = tag;
           tag = slide["tag"];
           if (tag != prevtag) {
@@ -83,9 +89,6 @@ window.OpenLP = {
           OpenLP.currentTags[idx] = tags;
           if (slide["selected"])
             OpenLP.currentSlide = idx;
-          var blank = slide["blank"];
-          $("#wrapper").addClass(blank ? "hide" : "show");
-          $("#wrapper").removeClass(blank ? "show" : "hide");
         })
         OpenLP.loadService();
       }
